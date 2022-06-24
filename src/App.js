@@ -1,14 +1,20 @@
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { decrement, increment } from './actions/counter'
+import { fetchPosts } from './actions/posts'
 
 function App () {
-  const counter = useSelector(state => state)
+  const posts = useSelector(state => state)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchPosts())
+  }, [dispatch])
+
   return (
     <div>
-      <h1>Counter:{counter}</h1>
-      <button onClick={() => dispatch(increment())}>+</button>
-      <button onClick={() => dispatch(decrement())}>-</button>
+      {posts?.map(post => {
+        return <h4 key={post.id}>Title: {post.title}</h4>
+      })}
     </div>
   )
 }

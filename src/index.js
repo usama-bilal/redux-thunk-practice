@@ -2,11 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
-import { createStore } from 'redux'
-import counter from './reducers/counter'
+import { createStore, applyMiddleware } from 'redux'
+import ReduxThunk from 'redux-thunk'
+import counter from './reducers/posts'
 import { Provider } from 'react-redux'
 
-const store = createStore(counter)
+const store = createStore(counter, applyMiddleware(ReduxThunk))
 store.subscribe(() => store.getState())
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
